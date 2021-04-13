@@ -78,12 +78,10 @@
     
     %[centers,radii] = imfindcircles(Skin,[10 30],'ObjectPolarity','bright','Sensitivity',0.94);
     [topPointX, topPointY] = getXYFirstWhiteFromTop(Skin);
-    figure,imshow(Skin);
-    title("Not Cropped")
+    %figure,imshow(Skin);
+    %title("Not Cropped")
     CroppedImage = imcrop(Skin,[topPointX-(Width*CropSensitivityX) topPointY topPointX+(Width*CropSensitivityX) topPointY+(Height*CropSensitivityY)]);
 
-    figure,imshow(CroppedImage)
-    title("CroppedBeforeCrop")
     CroppedImage = removeNearEmptyLinesOnSide(CroppedImage);
 
     axis on
@@ -92,9 +90,12 @@
     %plot(topPointX,topPointY, 'r+', 'MarkerSize', 30, 'LineWidth', 2);
     %plot(topPointX-(Width*CropSensitivty), topPointY, 'r+', 'MarkerSize', 30, 'LineWidth', 2);
     %plot(topPointX+(Width*CropSensitivty), topPointY+(Height*CropSensitivty), 'r+', 'MarkerSize', 30, 'LineWidth', 2);
-   %
+    %
     figure,imshow(CroppedImage)
     title("Cropped")
+    
+        axis on
+        hold on;
     end
 %end
 
@@ -138,13 +139,14 @@ end
 function [Image] = removeNearEmptyLinesOnSide(Image)
     sizeImg = size(Image);
     lengthImg = sizeImg(1);
-    width = sizeImg(2);
+    widthImg = sizeImg(2);
     left = 1;
-    
+    disp(sizeImg)
     leftIndex = 0;
     rightIndex = 0;
     %find collums extremities
-    for collumIndex=1:lengthImg
+    disp(lengthImg)
+    for collumIndex=1:widthImg
         collum = Image(:, collumIndex);
 
         %Is collum not part of the face?
@@ -160,8 +162,9 @@ function [Image] = removeNearEmptyLinesOnSide(Image)
             rightIndex = 0;
             left = 0;
         end
-
     end
+
+
     disp(leftIndex);
     disp(rightIndex);
     Image = CroppedBorder(Image, leftIndex, rightIndex);
