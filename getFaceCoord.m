@@ -1,5 +1,5 @@
 %for number = 1:200
-
+    CropSensitivty = 0.33;%variable found from statistic, allow to crop the image on the head
     folder = "pictures/";
     %g through every 
     %filename = folder + number + "-1.jpg";
@@ -16,7 +16,7 @@
     %filename = folder + "1-1.jpg";
     %end 
    
-    filename = folder + "28-2.jpg";
+    filename = folder + "1-2.jpg";
     
     %save the image as a double variable
     Krgb=double(imread(filename));
