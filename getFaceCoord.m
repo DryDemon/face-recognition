@@ -16,7 +16,7 @@
     %filename = folder + "1-1.jpg";
     %end 
    
-    filename = folder + "62-3.jpg";
+    filename = folder + "24-3.jpg";
     
     %save the image as a double variable
     Krgb=double(imread(filename));
@@ -24,13 +24,9 @@
     %get every physic information from the image (size, colors)
     Height=size(Krgb,1);
     Width=size(Krgb,2);
-    
-    if(Width>Height)
-     Krgb=imrotate(Krgb,-90); 
-     Height=size(Krgb,1);
-    Width=size(Krgb,2);
-    end
-    
+   
+    if(Height > Width)
+
     %extracting the Red, Green, blue colors of the image into matrices
     Red=Krgb(:,:,1);
     Green=Krgb(:,:,2);
@@ -87,7 +83,7 @@
    
     figure,imshow(CroppedImage)
     title("Cropped")
-
+    end
 %end
 
 %Image is 0 for black, 1 for white
