@@ -1,5 +1,6 @@
 %for number = 1:200
     CropSensitivty = 0.33;%variable found from statistic, allow to crop the image on the head
+
     folder = "pictures/";
     %g through every 
     %filename = folder + number + "-1.jpg";
@@ -16,7 +17,11 @@
     %filename = folder + "1-1.jpg";
     %end 
    
+<<<<<<< HEAD
     filename = folder + "24-3.jpg";
+=======
+    filename = folder + "114-3.jpg";
+>>>>>>> 11566032e55531434430097e84610516b121f2e3
     
     %save the image as a double variable
     Krgb=double(imread(filename));
@@ -76,18 +81,26 @@
     
     
     [centers,radii] = imfindcircles(Skin,[10 30],'ObjectPolarity','bright','Sensitivity',0.94)
-    [topPointX, topPointY] = getYFirstWhiteFromTop(Skin)
+    [topPointX, topPointY] = getXYFirstWhiteFromTop(Skin)
     figure,imshow(Skin);
     title("Not Cropped")
     CroppedImage = imcrop(Skin,[topPointX-(Width*CropSensitivty) topPointY topPointX+(Width*CropSensitivty) topPointY+(Height*CropSensitivty)]);
-   
+
+    axis on
+    hold on;
+    % Plot cross at row 100, column 50
+    %plot(topPointX,topPointY, 'r+', 'MarkerSize', 30, 'LineWidth', 2);
+    %plot(topPointX-(Width*CropSensitivty), topPointY, 'r+', 'MarkerSize', 30, 'LineWidth', 2);
+    %plot(topPointX+(Width*CropSensitivty), topPointY+(Height*CropSensitivty), 'r+', 'MarkerSize', 30, 'LineWidth', 2);
+   %
     figure,imshow(CroppedImage)
     title("Cropped")
     end
 %end
 
 %Image is 0 for black, 1 for white
-function [X, Y] = getYFirstWhiteFromTop(Image)
+function [X, Y] = getXYFirstWhiteFromTop(Image)
+    findTopColorSensitivity = 5;%variable to not get lost white point while searching for top of the face
     % input : I (upright RGB image)
     % output : X, Y image
     sizeImg = size(Image);
@@ -99,7 +112,7 @@ function [X, Y] = getYFirstWhiteFromTop(Image)
     for lineIndex=1:width
         line = Image(lineIndex,:);
         lineSum=sum(line);
-        if(lineSum ~= 0)
+        if(lineSum > findTopColorSensitivity)
             firstX = 0;
             lastX = 1;
             %now that we have the Y, we search X in the row
