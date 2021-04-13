@@ -81,6 +81,8 @@
     %figure,imshow(Skin);
     %title("Not Cropped")
     CroppedImage = imcrop(Skin,[topPointX-(Width*CropSensitivityX) topPointY topPointX+(Width*CropSensitivityX) topPointY+(Height*CropSensitivityY)]);
+    figure,imshow(CroppedImage)
+    title("before")
 
     CroppedImage = removeNearEmptyLinesOnSide(CroppedImage);
 
@@ -141,11 +143,11 @@ function [Image] = removeNearEmptyLinesOnSide(Image)
     lengthImg = sizeImg(1);
     widthImg = sizeImg(2);
     left = 1;
-    disp(sizeImg)
+
     leftIndex = 0;
     rightIndex = 0;
     %find collums extremities
-    disp(lengthImg)
+
     for collumIndex=1:widthImg
         collum = Image(:, collumIndex);
 
@@ -165,8 +167,6 @@ function [Image] = removeNearEmptyLinesOnSide(Image)
     end
 
 
-    disp(leftIndex);
-    disp(rightIndex);
     Image = CroppedBorder(Image, leftIndex, rightIndex);
 end
 
@@ -253,8 +253,7 @@ function image = CroppedBorder(image,XLeft,XRight)
  if(XRight == 0)
     image = imcrop(image,[XLeft 0 imageW imageH]);
 else
-    image = imcrop(image,[XLeft 0 XRight imageH]);
-
+    image = imcrop(image,[XLeft 0 (XRight-XLeft) imageH]);
  end
 
 end
