@@ -1,5 +1,5 @@
 %for number = 1:200
-    CropSensitivty = 0.33;%variable found from statistic, allow to crop the image on the head
+    CropSensitivty = 0.66;%variable found from statistic, allow to crop the image on the head
     folder = "pictures/";
     %g through every 
     %filename = folder + number + "-1.jpg";
@@ -80,8 +80,12 @@
     
     
     [centers,radii] = imfindcircles(Skin,[10 30],'ObjectPolarity','bright','Sensitivity',0.94)
-    getYFirstWhiteFromTop(Skin)
-    figure,imshow(Skin);
+    headY = getYFirstWhiteFromTop(Skin);
+    figure,imshow(Skin)
+    title('skin')
+    CroppedImage = imcrop(Skin,[400 headY*CropSensitivty 2000 headY]);
+    figure,imshow(CroppedImage)
+    title('Cropped');
     viscircles(centers,radii,'EdgeColor', 'y');
 
 %end
