@@ -27,6 +27,8 @@ for i=1:size(filenames,1)
         correctId=strsplit(filenames{i},'-');
         correctId=str2double(correctId{1});
         trainingInput = cat(4, trainingInput, I);
+size(trainingInput);
+size(trainingOutput);
 
         trainingOutput=[trainingOutput, correctId];
 
