@@ -88,8 +88,9 @@
     figure,imshow(ColorImage)
     title("beforeColored")
 
-    CroppedImage = getXYTrimremoveNearEmptyLinesOnSide(CroppedImage);
-    ColorImage 
+    [Left Right] = getXYTrimremoveNearEmptyLinesOnSide(CroppedImage);
+    CroppedImage = CroppedBorder(CroppedImage,Left,Right);
+    ColorImage  = CroppedBorder(ColorImage,Left,Right);
 
     axis on
     hold on;
@@ -100,6 +101,9 @@
     %
     figure,imshow(CroppedImage)
     title("Cropped")
+
+    figure,imshow(ColorImage)
+    title("Cropped Colored")
     
         axis on
         hold on;
