@@ -17,18 +17,21 @@ trainingOutput = [];
 for i=1:size(filenames,1)
     disp(i + "/" + size(filenames,1));    
     I=imread(strcat(testFolder,(filenames{i})));
-    I = getTrainingImage(I);
-    
-    Height = size(I, 1);
-    Width = size(I, 2);
-    
+
     if (Height > Width)
+    
+        I = getTrainingImage(I);
+
+    
+        Height = size(I, 1);
+        Width = size(I, 2);
+    
     
         correctId=strsplit(filenames{i},'-');
         correctId=str2double(correctId{1});
         trainingInput = cat(4, trainingInput, I);
-size(trainingInput);
-size(trainingOutput);
+size(trainingInput)
+size(trainingOutput)
 
         trainingOutput=[trainingOutput, correctId];
 
