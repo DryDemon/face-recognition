@@ -80,19 +80,19 @@
     
     
     [centers,radii] = imfindcircles(Skin,[10 30],'ObjectPolarity','bright','Sensitivity',0.94)
-    getYFirstWhiteFromTop(Skin)
+    [topPointX, topPointY] = getYFirstWhiteFromTop(Skin)
     figure,imshow(Skin);
     viscircles(centers,radii,'EdgeColor', 'y');
 
 %end
 
 %Image is 0 for black, 1 for white
-function [lineIndex] = getYFirstWhiteFromTop(Image)
+function [X, Y] = getYFirstWhiteFromTop(Image)
     % input : I (upright RGB image)
     % output : X, Y image
     sizeImg = size(Image);
-    length = sizeImg(1)
-    width = sizeImg(2)
+    length = sizeImg(1);
+    width = sizeImg(2);
 
 
     %for each line
@@ -100,8 +100,23 @@ function [lineIndex] = getYFirstWhiteFromTop(Image)
         line = Image(lineIndex,:);
         lineSum=sum(line);
         if(lineSum ~= 0)
+            firstX = 0;
+            lastX = 1;
+            %now that we have the Y, we search X in the row
+            lengthLineSum = size(line);
+            lengthLineSum = lengthLineSum(2);
+
+            for collumIndex=1:lengthLineSum
+                if(line(collumIndex) ==1)
+                    lastX = collumIndex;
+                    if(firstX == 0)
+                        firstX = collumIndex;
+                    end
+                end
+            end
             break;
         end
     end
-
+    Y = lineIndex;
+    X = (firstX + lastX) /2;
 end
