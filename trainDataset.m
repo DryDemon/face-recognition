@@ -5,7 +5,8 @@ nbNeurons = (size(filenames,1) * 8) ^ 0.5;
 nbNeurons = nbNeurons - mod(nbNeurons, 10) %nbNeurons end by 0
 net = patternnet([nbNeurons/10 nbNeurons/10 nbNeurons/10 nbNeurons/5 nbNeurons/5 nbNeurons/10 nbNeurons/10 nbNeurons/10]);
 
+load('training','trainingInput','trainingOutput')
 
+net=train(net, trainingInput, trainingOutput);
 
-
-    
+save('net', 'net');
