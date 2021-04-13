@@ -37,9 +37,6 @@ function [Image] = getTrainingImage(Image)
     %get
 
     Image = getFaceCropped(Image);
-    hold on
-    figure, imshow(Image)
-    title("Cropped")
     Image = imresize(Image, [200 200]);
 
 end
