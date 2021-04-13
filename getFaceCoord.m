@@ -90,9 +90,9 @@
 function [X, Y] = getXYFirstWhiteFromTop(Image)
 % input : I (upright RGB image)
 % output : X, Y image
-size = size(Image)[1];
-length = size(1)
-width = size(2);
+sizeImg = size(Image);
+length = sizeImg(1)
+width = sizeImg(2);
 disp(length)
 disp(width)
 
