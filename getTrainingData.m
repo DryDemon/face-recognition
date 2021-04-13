@@ -28,10 +28,13 @@ for i=1:size(filenames,1)
     
         correctId=strsplit(filenames{i},'-');
         correctId=str2double(correctId{1});
-        trainingInput = cat(4, trainingInput, I);
 
-
+        trainingInput = cat(3, trainingInput, I);
+        
+        
         trainingOutput=[trainingOutput, correctId];
+        size(trainingInput)
+        size(trainingOutput)
 
     end
 end
@@ -45,6 +48,7 @@ function [Image] = getTrainingImage(Image)
 
     Image = getFaceCropped(Image);
     Image = imresize(Image, [200 200]);
+    Image = rgb2gray(Image);
     
 
 end
