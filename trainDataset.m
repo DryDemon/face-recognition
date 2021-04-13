@@ -6,7 +6,9 @@ nbNeurons = nbNeurons - mod(nbNeurons, 10) %nbNeurons end by 0
 net = patternnet([nbNeurons/10 nbNeurons/10 nbNeurons/10 nbNeurons/5 nbNeurons/5 nbNeurons/10 nbNeurons/10 nbNeurons/10]);
 
 load('training','trainingInput','trainingOutput')
+size(trainingInput)
+size(trainingOutput)
 
-net=train(net, trainingInput, trainingOutput);
+net=trainNetwork(trainingInput, trainingOutput, net);  
 
 save('net', 'net');
