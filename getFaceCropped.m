@@ -63,34 +63,14 @@ function [coloredImage] = getFaceCropped(Image)
      
         %[centers,radii] = imfindcircles(Skin,[10 30],'ObjectPolarity','bright','Sensitivity',0.94);
         [topPointX, topPointY] = getXYFirstWhiteFromTop(Skin);
-        %figure,imshow(Skin);
-        %title("Not Cropped")
+
         CroppedImage = imcrop(Skin, [topPointX - (Width * CropSensitivityX) topPointY topPointX + (Width * CropSensitivityX) topPointY + (Height * CropSensitivityY)]);
         ColorImage = imcrop(ColorImage, [topPointX - (Width * CropSensitivityX) topPointY topPointX + (Width * CropSensitivityX) topPointY + (Height * CropSensitivityY)]);
-        figure, imshow(CroppedImage)
-        title("before")
-        figure, imshow(ColorImage)
-        title("beforeColored")
      
         [Left Right] = getXYTrimremoveNearEmptyLinesOnSide(CroppedImage);
         CroppedImage = CroppedBorder(CroppedImage, Left, Right);
         ColorImage = CroppedBorder(ColorImage, Left, Right);
      
-        axis on
-        hold on;
-        % Plot cross at row 100, column 50
-        %plot(topPointX,topPointY, 'r+', 'MarkerSize', 30, 'LineWidth', 2);
-        %plot(topPointX-(Width*CropSensitivty), topPointY, 'r+', 'MarkerSize', 30, 'LineWidth', 2);
-        %plot(topPointX+(Width*CropSensitivty), topPointY+(Height*CropSensitivty), 'r+', 'MarkerSize', 30, 'LineWidth', 2);
-        %
-        figure, imshow(CroppedImage)
-        title("Cropped")
-     
-        figure, imshow(ColorImage)
-        title("Cropped Colored")
-     
-        axis on
-        hold on;
         coloredImage = ColorImage;
     else
         ColorImage = 0;
