@@ -17,7 +17,7 @@
     %filename = folder + "1-1.jpg";
     %end 
    
-    filename = folder + "114-3.jpg";
+    filename = folder + "62-3.jpg";
     
     %save the image as a double variable
     Krgb=double(imread(filename));
@@ -80,11 +80,13 @@
     end
     
     
-    [centers,radii] = imfindcircles(Skin,[10 30],'ObjectPolarity','bright','Sensitivity',0.94)
-    [topPointX, topPointY] = getXYFirstWhiteFromTop(Skin)
+    %[centers,radii] = imfindcircles(Skin,[10 30],'ObjectPolarity','bright','Sensitivity',0.94);
+    [topPointX, topPointY] = getXYFirstWhiteFromTop(Skin);
     figure,imshow(Skin);
     title("Not Cropped")
     CroppedImage = imcrop(Skin,[topPointX-(Width*CropSensitivty) topPointY topPointX+(Width*CropSensitivty) topPointY+(Height*CropSensitivty)]);
+
+    CroppedImage = removeNearEmptyLinesOnSide(CroppedImage);
 
     axis on
     hold on;
@@ -133,4 +135,111 @@ function [X, Y] = getXYFirstWhiteFromTop(Image)
     end
     Y = lineIndex;
     X = (firstX + lastX) /2;
+end
+
+
+function [Image] = removeNearEmptyLinesOnSide(Image)
+    sizeImg = size(Image);
+    lengthImg = sizeImg(1);
+    width = sizeImg(2);
+    left = 1;
+    
+    leftIndex = 0;
+    rightIndex = 0;
+    %find collums extremities
+    for collumIndex=1:lengthImg
+        collum = Image(:, collumIndex);
+
+        %Is collum not part of the face?
+        if(~isCollumCorrect(collum, lengthImg) )
+            if(left == 1)
+                leftIndex = collumIndex;
+            else
+                if(rightIndex == 0)
+                    rightIndex = collumIndex
+                end
+            end
+        else
+            rightIndex = 0;
+            left = 0
+        end
+
+    end
+
+end
+
+function [isCorrect] = isCollumCorrect(collum, lengthCol)
+    highLimitListMaximum=3;
+    lowLimitListMaximum=3;
+    numberOfLostWhiteBoxMaximum = 10;
+    percentageContinuity = 0.5;
+    numberOfContinuousPixel = percentageContinuity * lengthCol;
+    %Does collum have a least 50% continuity black?
+    %output : 0 if not part of the face, or 1 if part of the face
+    isCorrect = true;
+
+    
+    startSearchBlack = lengthCol/2 - mod(lengthCol/2, 2);
+    numberOfLostWhiteBox = 0;
+    lowLimitList = 0;
+    highLimitList = 0;
+    stopHigh=0;
+    stoplow=0;
+    
+    lastHighIndexBeforeWhite=0;
+    lastlowIndexBeforeWhite=0;
+    
+    collumSum = sum(collum);
+
+    if(collumSum < 500)
+        isCorrect = false;
+    end
+%
+%    if(isCorrect == 1)
+%        foots = lengthCol/2;
+%        foots = foots - mod(foots, 2);
+%        
+%        for i=0:(foots )-1
+%            highLimit = startSearchBlack+i;
+%            lowLimit = startSearchBlack-i;
+%            
+%            if(collum(highLimit) == 1) %if white
+%                %we try to see if it is a low number of black box
+%                highLimitList=highLimitList+1;
+%                if(highLimitList > highLimitListMaximum)
+%                    stopHigh=1;
+%                end
+%            else
+%                %isGood, reset list
+%                if(stopHigh == 0)
+%                    numberOfLostWhiteBox=numberOfLostWhiteBox+highLimitList;
+%                    highLimitList=0;
+%                    lastHighIndexBeforeWhite=highLimit;
+%                end
+%            end
+%
+%            if(collum(lowLimit) == 1) %if white
+%                %we try to see if it is a low number of black box
+%                lowLimitList=lowLimitList+1;
+%                if(lowLimitList > lowLimitListMaximum)
+%                    stoplow=1;
+%                end
+%            else
+%                %isGood, reset list
+%                if(stoplow == 0)
+%                    numberOfLostWhiteBox=numberOfLostWhiteBox+lowLimitList;
+%                    lowLimitList=0;
+%                    lastlowIndexBeforeWhite=lowLimit;
+%                end
+%            end
+%
+%        end
+%
+%        if(numberOfLostWhiteBox > numberOfLostWhiteBoxMaximum)
+%
+%            if(numberOfContinuousPixel < (lastHighIndexBeforeWhite - lastlowIndexBeforeWhite))
+%                isCorrect = 0;
+%            end
+%        end
+%    end
 end
