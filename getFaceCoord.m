@@ -1,6 +1,6 @@
 %for number = 1:200
-    CropSensitivty = 0.33;%variable found from statistic, allow to crop the image on the head
-
+    CropSensitivityX = 0.33;%variable found from statistic, allow to crop the image on the head
+    CropSensitivityY = 0.28;
     folder = "pictures/";
     %g through every 
     %filename = folder + number + "-1.jpg";
@@ -17,11 +17,7 @@
     %filename = folder + "1-1.jpg";
     %end 
    
-<<<<<<< HEAD
-    filename = folder + "24-3.jpg";
-=======
-    filename = folder + "114-3.jpg";
->>>>>>> 11566032e55531434430097e84610516b121f2e3
+    filename = folder + "234-3.jpg";
     
     %save the image as a double variable
     Krgb=double(imread(filename));
@@ -84,7 +80,7 @@
     [topPointX, topPointY] = getXYFirstWhiteFromTop(Skin)
     figure,imshow(Skin);
     title("Not Cropped")
-    CroppedImage = imcrop(Skin,[topPointX-(Width*CropSensitivty) topPointY topPointX+(Width*CropSensitivty) topPointY+(Height*CropSensitivty)]);
+    CroppedImage = imcrop(Skin,[topPointX-(Width*CropSensitivityX) topPointY topPointX+(Width*CropSensitivityX) topPointY+(Height*CropSensitivityY)]);
 
     axis on
     hold on;
