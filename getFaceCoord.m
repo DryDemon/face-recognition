@@ -21,6 +21,7 @@
     
     %save the image as a double variable
     Krgb=double(imread(filename));
+    ColorImage = imread(filename);
     
     %get every physic information from the image (size, colors)
     Height=size(Krgb,1);
@@ -81,10 +82,14 @@
     %figure,imshow(Skin);
     %title("Not Cropped")
     CroppedImage = imcrop(Skin,[topPointX-(Width*CropSensitivityX) topPointY topPointX+(Width*CropSensitivityX) topPointY+(Height*CropSensitivityY)]);
+    ColorImage = imcrop(ColorImage,[topPointX-(Width*CropSensitivityX) topPointY topPointX+(Width*CropSensitivityX) topPointY+(Height*CropSensitivityY)]);
     figure,imshow(CroppedImage)
     title("before")
+    figure,imshow(ColorImage)
+    title("beforeColored")
 
     CroppedImage = removeNearEmptyLinesOnSide(CroppedImage);
+    ColorImage 
 
     axis on
     hold on;
@@ -168,6 +173,10 @@ function [Image] = removeNearEmptyLinesOnSide(Image)
 
 
     Image = CroppedBorder(Image, leftIndex, rightIndex);
+    ColorImage = CroppedBorder(ColorImage, leftIndex, rightIndex);
+    figure,imshow(ColorImage)
+    title("Final colored cropped")
+
 end
 
 function [isCorrect] = isCollumCorrect(collum, lengthCol)
