@@ -88,7 +88,7 @@
     figure,imshow(ColorImage)
     title("beforeColored")
 
-    CroppedImage = removeNearEmptyLinesOnSide(CroppedImage);
+    CroppedImage = getXYTrimremoveNearEmptyLinesOnSide(CroppedImage);
     ColorImage 
 
     axis on
@@ -143,7 +143,7 @@ function [X, Y] = getXYFirstWhiteFromTop(Image)
 end
 
 
-function [Image] = removeNearEmptyLinesOnSide(Image)
+function [XLeft, XRight] = getXYTrimremoveNearEmptyLinesOnSide(Image)
     sizeImg = size(Image);
     lengthImg = sizeImg(1);
     widthImg = sizeImg(2);
@@ -172,11 +172,8 @@ function [Image] = removeNearEmptyLinesOnSide(Image)
     end
 
 
-    Image = CroppedBorder(Image, leftIndex, rightIndex);
-    ColorImage = CroppedBorder(ColorImage, leftIndex, rightIndex);
-    figure,imshow(ColorImage)
-    title("Final colored cropped")
-
+    XLeft = leftIndex;
+    XRight = rightIndex;
 end
 
 function [isCorrect] = isCollumCorrect(collum, lengthCol)
