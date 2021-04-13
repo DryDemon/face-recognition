@@ -2,7 +2,7 @@
 testFolder='pictures\'; %%%%% your test directory
 
 
-I=imread(strcat(testFolder,("A-3.jpg")));
+I=imread(strcat(testFolder,("1-3.jpg")));
 
 Image = getFaceCropped(I);
 hold on

@@ -18,15 +18,15 @@ for i=1:size(filenames,1)
     disp(i + "/" + size(filenames,1));    
     I=imread(strcat(testFolder,(filenames{i})));
     I = getTrainingImage(I);
+    if (Height > Width)
     
-    correctId=strsplit(filenames{i},'-');
-    correctId=str2double(correctId{1});
+        correctId=strsplit(filenames{i},'-');
+        correctId=str2double(correctId{1});
 
-    trainingInput=[trainingInput, I];
-    trainingOutput=[trainingOutput, correctId];
+        trainingInput=[trainingInput, I];
+        trainingOutput=[trainingOutput, correctId];
 
-    %A=[A,4];
-    
+    end
 end
 save('training','trainingInput','trainingOutput')
 
@@ -38,6 +38,7 @@ function [Image] = getTrainingImage(Image)
 
     Image = getFaceCropped(Image);
     Image = imresize(Image, [200 200]);
+    
 
 end
 
