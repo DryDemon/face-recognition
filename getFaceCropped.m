@@ -73,7 +73,7 @@ function [coloredImage] = getFaceCropped(Image)
      
         coloredImage = ColorImage;
     else
-        ColorImage = 0;
+        ColoredImage = 0;
      
     end
     end

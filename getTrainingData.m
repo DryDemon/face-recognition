@@ -15,7 +15,7 @@ trainingOutput = [];
 
 %generate train data
 for i=1:size(filenames,1)
-    disp(i + "/" + size(filenames,1));
+    disp(i + "/" + size(filenames,1));    
     I=imread(strcat(testFolder,(filenames{i})));
     I = getTrainingImage(I);
     
@@ -35,11 +35,11 @@ function [Image] = getTrainingImage(Image)
     % input : I (upright raw RGB image)
     % output : Image made for the training dataset
     %get
+
     Image = getFaceCropped(Image);
     hold on
     figure, imshow(Image)
     title("Cropped")
-
     Image = imresize(Image, [200 200]);
 
 end
