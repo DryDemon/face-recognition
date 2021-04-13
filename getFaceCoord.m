@@ -16,7 +16,7 @@
     %filename = folder + "1-1.jpg";
     %end 
    
-    filename = folder + "1-2.jpg";
+    filename = folder + "62-3.jpg";
     
     %save the image as a double variable
     Krgb=double(imread(filename));
@@ -82,7 +82,11 @@
     [centers,radii] = imfindcircles(Skin,[10 30],'ObjectPolarity','bright','Sensitivity',0.94)
     [topPointX, topPointY] = getYFirstWhiteFromTop(Skin)
     figure,imshow(Skin);
-    viscircles(centers,radii,'EdgeColor', 'y');
+    title("Not Cropped")
+    CroppedImage = imcrop(Skin,[topPointX-(Width*CropSensitivty) topPointY topPointX+(Width*CropSensitivty) topPointY+(Height*CropSensitivty)]);
+   
+    figure,imshow(CroppedImage)
+    title("Cropped")
 
 %end
 
