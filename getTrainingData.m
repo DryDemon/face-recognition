@@ -35,6 +35,7 @@ function [Image] = getTrainingImage(Image)
     % input : I (upright raw RGB image)
     % output : Image made for the training dataset
     %get
+    Image = getFaceCropped(Image);
     Image = imresize(Image, [200 200]);
 
 end
