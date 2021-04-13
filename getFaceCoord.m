@@ -129,3 +129,10 @@ function [X, Y] = getXYFirstWhiteFromTop(Image)
     Y = lineIndex;
     X = (firstX + lastX) /2;
 end
+
+function image = CroppedBorder(image,XLeft,XRight)
+
+ imageH=size(image,1);
+image = imcrop(image,[XLeft 0 XRight imageH]);
+
+end
