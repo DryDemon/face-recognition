@@ -1,21 +1,22 @@
 %for number = 1:200
 
+    folder = "pictures/";
     %g through every 
-    %filename = number + "-1.jpg";
+    %filename = folder + number + "-1.jpg";
     %isfile(filename)
     %if isfile(filename) == 1
         %file is here
     %else
-     %   filename = number + "-1.jpeg";
+     %   filename = folder + number + "-1.jpeg";
     %end
 
     %if isfile(filename) == 1
         %file is here
     %else
-    %filename = "1-1.jpg";
+    %filename = folder + "1-1.jpg";
     %end 
    
-    filename = "28-1.jpg";
+    filename = folder + "28-2.jpg";
     
     %save the image as a double variable
     Krgb=double(imread(filename));
@@ -79,7 +80,26 @@
     
     
     [centers,radii] = imfindcircles(Skin,[10 30],'ObjectPolarity','bright','Sensitivity',0.94)
+    %getXYFirstWhiteFromTop(Skin);
     figure,imshow(Skin);
     viscircles(centers,radii,'EdgeColor', 'y');
 
 %end
+
+%
+%function [X, Y] = getXYFirstWhiteFromTop(Image)
+%% input : I (upright RGB image)
+%% output : X, Y image
+%size = size(Image)[1];
+%length = size(1)
+%width = size(2);
+%disp(length)
+%disp(width)
+%
+%%for each line
+%
+%    
+%
+%
+%end
+%
