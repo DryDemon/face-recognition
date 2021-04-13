@@ -174,7 +174,9 @@ function [isCorrect] = isCollumCorrect(collum, lengthCol)
     highLimitListMaximum=3;
     lowLimitListMaximum=3;
     numberOfLostWhiteBoxMaximum = 10;
+    numberOfTotalWhiteBoxMaximum = 20;
     percentageContinuity = 0.5;
+
     numberOfContinuousPixel = percentageContinuity * lengthCol;
     %Does collum have a least 50% continuity black?
     %output : 0 if not part of the face, or 1 if part of the face
@@ -193,7 +195,7 @@ function [isCorrect] = isCollumCorrect(collum, lengthCol)
     
     collumSum = sum(collum);
 
-    if(collumSum < 10)
+    if(collumSum < numberOfTotalWhiteBoxMaximum)
         isCorrect = false;
     end
 
