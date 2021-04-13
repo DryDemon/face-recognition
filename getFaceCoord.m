@@ -1,6 +1,6 @@
 %for number = 1:200
-    CropSensitivty = 0.33;%variable found from statistic, allow to crop the image on the head
-
+    CropSensitivityX = 0.33;%variable found from statistic, allow to crop the image on the head
+    CropSensitivityY = 0.28;
     folder = "pictures/";
     %g through every 
     %filename = folder + number + "-1.jpg";
@@ -17,7 +17,7 @@
     %filename = folder + "1-1.jpg";
     %end 
    
-    filename = folder + "62-3.jpg";
+    filename = folder + "234-3.jpg";
     
     %save the image as a double variable
     Krgb=double(imread(filename));
@@ -25,13 +25,9 @@
     %get every physic information from the image (size, colors)
     Height=size(Krgb,1);
     Width=size(Krgb,2);
-    
-    if(Width>Height)
-     Krgb=imrotate(Krgb,-90); 
-     Height=size(Krgb,1);
-    Width=size(Krgb,2);
-    end
-    
+   
+    if(Height > Width)
+
     %extracting the Red, Green, blue colors of the image into matrices
     Red=Krgb(:,:,1);
     Green=Krgb(:,:,2);
@@ -84,7 +80,7 @@
     [topPointX, topPointY] = getXYFirstWhiteFromTop(Skin);
     figure,imshow(Skin);
     title("Not Cropped")
-    CroppedImage = imcrop(Skin,[topPointX-(Width*CropSensitivty) topPointY topPointX+(Width*CropSensitivty) topPointY+(Height*CropSensitivty)]);
+    CroppedImage = imcrop(Skin,[topPointX-(Width*CropSensitivityX) topPointY topPointX+(Width*CropSensitivityX) topPointY+(Height*CropSensitivityY)]);
 
     CroppedImage = removeNearEmptyLinesOnSide(CroppedImage);
 
@@ -97,8 +93,7 @@
    %
     figure,imshow(CroppedImage)
     title("Cropped")
-    
-
+    end
 %end
 
 %Image is 0 for black, 1 for white
@@ -242,4 +237,10 @@ function [isCorrect] = isCollumCorrect(collum, lengthCol)
 %            end
 %        end
 %    end
+end
+function image = CroppedBorder(image,XLeft,XRight)
+
+ imageH=size(image,1);
+image = imcrop(image,[XLeft 0 XRight imageH]);
+
 end
