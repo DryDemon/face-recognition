@@ -1,6 +1,6 @@
 %for number = 1:200
     CropSensitivityX = 0.33;%variable found from statistic, allow to crop the image on the head
-    CropSensitivityY = 0.28;
+    CropSensitivityY = 0.30;
     folder = "pictures/";
     %g through every 
     %filename = folder + number + "-1.jpg";
@@ -82,6 +82,8 @@
     title("Not Cropped")
     CroppedImage = imcrop(Skin,[topPointX-(Width*CropSensitivityX) topPointY topPointX+(Width*CropSensitivityX) topPointY+(Height*CropSensitivityY)]);
 
+    figure,imshow(CroppedImage)
+    title("CroppedBeforeCrop")
     CroppedImage = removeNearEmptyLinesOnSide(CroppedImage);
 
     axis on
@@ -151,16 +153,18 @@ function [Image] = removeNearEmptyLinesOnSide(Image)
                 leftIndex = collumIndex;
             else
                 if(rightIndex == 0)
-                    rightIndex = collumIndex
+                    rightIndex = collumIndex;
                 end
             end
         else
             rightIndex = 0;
-            left = 0
+            left = 0;
         end
 
     end
-
+    disp(leftIndex);
+    disp(rightIndex);
+    Image = CroppedBorder(Image, leftIndex, rightIndex);
 end
 
 function [isCorrect] = isCollumCorrect(collum, lengthCol)
@@ -186,61 +190,68 @@ function [isCorrect] = isCollumCorrect(collum, lengthCol)
     
     collumSum = sum(collum);
 
-    if(collumSum < 500)
+    if(collumSum < 10)
         isCorrect = false;
     end
-%
-%    if(isCorrect == 1)
-%        foots = lengthCol/2;
-%        foots = foots - mod(foots, 2);
-%        
-%        for i=0:(foots )-1
-%            highLimit = startSearchBlack+i;
-%            lowLimit = startSearchBlack-i;
-%            
-%            if(collum(highLimit) == 1) %if white
-%                %we try to see if it is a low number of black box
-%                highLimitList=highLimitList+1;
-%                if(highLimitList > highLimitListMaximum)
-%                    stopHigh=1;
-%                end
-%            else
-%                %isGood, reset list
-%                if(stopHigh == 0)
-%                    numberOfLostWhiteBox=numberOfLostWhiteBox+highLimitList;
-%                    highLimitList=0;
-%                    lastHighIndexBeforeWhite=highLimit;
-%                end
-%            end
-%
-%            if(collum(lowLimit) == 1) %if white
-%                %we try to see if it is a low number of black box
-%                lowLimitList=lowLimitList+1;
-%                if(lowLimitList > lowLimitListMaximum)
-%                    stoplow=1;
-%                end
-%            else
-%                %isGood, reset list
-%                if(stoplow == 0)
-%                    numberOfLostWhiteBox=numberOfLostWhiteBox+lowLimitList;
-%                    lowLimitList=0;
-%                    lastlowIndexBeforeWhite=lowLimit;
-%                end
-%            end
-%
-%        end
-%
-%        if(numberOfLostWhiteBox > numberOfLostWhiteBoxMaximum)
-%
-%            if(numberOfContinuousPixel < (lastHighIndexBeforeWhite - lastlowIndexBeforeWhite))
-%                isCorrect = 0;
-%            end
-%        end
-%    end
+
+    if(isCorrect == 1)
+        foots = lengthCol/2;
+        foots = foots - mod(foots, 2);
+        
+        for i=0:(foots )-1
+            highLimit = startSearchBlack+i;
+            lowLimit = startSearchBlack-i;
+            
+            if(collum(highLimit) == 1) %if white
+                %we try to see if it is a low number of black box
+                highLimitList=highLimitList+1;
+                if(highLimitList > highLimitListMaximum)
+                    stopHigh=1;
+                end
+            else
+                %isGood, reset list
+                if(stopHigh == 0)
+                    numberOfLostWhiteBox=numberOfLostWhiteBox+highLimitList;
+                    highLimitList=0;
+                    lastHighIndexBeforeWhite=highLimit;
+                end
+            end
+
+            if(collum(lowLimit) == 1) %if white
+                %we try to see if it is a low number of black box
+                lowLimitList=lowLimitList+1;
+                if(lowLimitList > lowLimitListMaximum)
+                    stoplow=1;
+                end
+            else
+                %isGood, reset list
+                if(stoplow == 0)
+                    numberOfLostWhiteBox=numberOfLostWhiteBox+lowLimitList;
+                    lowLimitList=0;
+                    lastlowIndexBeforeWhite=lowLimit;
+                end
+            end
+
+        end
+
+        if(numberOfLostWhiteBox > numberOfLostWhiteBoxMaximum)
+
+            if(numberOfContinuousPixel < (lastHighIndexBeforeWhite - lastlowIndexBeforeWhite))
+                isCorrect = 0;
+            end
+        end
+    end
 end
 function image = CroppedBorder(image,XLeft,XRight)
 
  imageH=size(image,1);
-image = imcrop(image,[XLeft 0 XRight imageH]);
+ imageW=size(image,2);
+
+ if(XRight == 0)
+    image = imcrop(image,[XLeft 0 imageW imageH]);
+else
+    image = imcrop(image,[XLeft 0 XRight imageH]);
+
+ end
 
 end
