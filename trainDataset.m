@@ -6,15 +6,14 @@ nbNeurons = nbNeurons - mod(nbNeurons, 10) %nbNeurons end by 0
 net = [nbNeurons/10 nbNeurons/10 nbNeurons/10 nbNeurons/5 nbNeurons/5 nbNeurons/10 nbNeurons/10 nbNeurons/10];
 
 layers = [ ...
-    imageInputLayer(net)
-    convolution2dLayer(5,20)
+imageInputLayer([200 200 3])
+    convolution2dLayer([5 5],10)
     reluLayer
-    maxPooling2dLayer(2,'Stride',2)
     fullyConnectedLayer(10)
     softmaxLayer
     classificationLayer];
 
-load('trainingGray','trainingInput','trainingOutput')
+load('training','trainingInput','trainingOutput')
 size(trainingInput)
 size(trainingOutput)
 
