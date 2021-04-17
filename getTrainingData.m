@@ -21,22 +21,21 @@ for i=1:size(filenames,1)
     Height = size(I, 1);
     Width = size(I, 2);
 
-    if (Height > Width)
+    I = getTrainingImage(I);
+
+    mkdir("trainingImages/"+i+"/")
     
-        I = getTrainingImage(I);
+    imwrite(I,"trainingImages/"+i+'/'+i+'.png')
+    correctId=strsplit(filenames{i},'-');
+    correctId=str2double(correctId{1});
 
-        imwrite(I,"trainingImages/"+i+'.png')
-        correctId=strsplit(filenames{i},'-');
-        correctId=str2double(correctId{1});
+    trainingInput = cat(3, trainingInput, I);
+    
+    
+    trainingOutput=[trainingOutput, correctId];
+    size(trainingInput)
+    size(trainingOutput)
 
-        trainingInput = cat(3, trainingInput, I);
-        
-        
-        trainingOutput=[trainingOutput, correctId];
-        size(trainingInput)
-        size(trainingOutput)
-
-    end
 end
 save('training','trainingInput','trainingOutput')
 

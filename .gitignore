@@ -1,5 +1,6 @@
 pictures/
 trainingImages/
+trainingImages2/
 *.mat
 
 # Created by https://www.toptal.com/developers/gitignore/api/matlab
