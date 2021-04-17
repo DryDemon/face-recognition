@@ -38,7 +38,7 @@ for i=1:size(filenames,1)
 
     end
 end
-save('trainingGray','trainingInput','trainingOutput')
+save('training','trainingInput','trainingOutput')
 
 %This function is going to make the image lighter from the basic image
 function [Image] = getTrainingImage(Image)
