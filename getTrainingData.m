@@ -34,9 +34,10 @@ for i=1:size(filenames,1)
 
         correctId=strsplit(filenames{i},'-');
         correctId=str2double(correctId{1});
+        
         mkdir("trainingImages/"+correctId+"/")
         
-        imwrite(I,"trainingImages/"+correctId+'/'+correctId+'.png')
+        imwrite(I,"trainingImages/"+correctId+'/'+i+'.png')
 
         % trainingInput = cat(3, trainingInput, I);
         
