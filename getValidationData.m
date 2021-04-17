@@ -8,14 +8,8 @@ for i=3:size(files,1)
     filenames{i-2,1}=files(i).name;
 end
 
-clear trainingInput
-clear trainingOutput
-trainingInput = [];
-trainingOutput = [];
-
 %generate train data
 for i=1:size(filenames,1)
-    disp(i + "/" + size(filenames,1));    
 
     type=strsplit(filenames{i},'-');
     
@@ -23,29 +17,29 @@ for i=1:size(filenames,1)
 
     type=str2double(type{1});
     
-    if(type == 1)
-
-        I=imread(strcat(testFolder,(filenames{i})));
-
-        % Height = size(I, 1);
-        % Width = size(I, 2);
-
-        I = getTrainingImage(I);
-
-        correctId=strsplit(filenames{i},'-');
-        correctId=str2double(correctId{1});
-        mkdir("trainingImages/"+correctId+"/")
+    if(type == 2 | type == 3)
         
-        imwrite(I,"trainingImages/"+correctId+'/'+correctId+'.png')
-
+        disp(i + "/" + size(filenames,1));    
+        
+        I=imread(strcat(testFolder,(filenames{i})));
+        
+        % I = getTrainingImage(I);
+        correctId=strsplit(filenames{i},'-');
+        
+        correctId=str2double(correctId{1});
+        
+        mkdir("validationImages/"+correctId+"/")
+        
+        imwrite(I,"validationImages/"+correctId+'/'+i+'.png')
+        
         % trainingInput = cat(3, trainingInput, I);
         
         
         % trainingOutput=[trainingOutput, correctId];
         % size(trainingInput)
         % size(trainingOutput)
-
     end
+        
 end
 % save('training','trainingInput','trainingOutput')
 
