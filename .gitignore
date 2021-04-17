@@ -3,6 +3,7 @@ trainingImages/
 trainingImages2/
 validationImages/
 validationImages2/
+Photo7/
 *.mat
 
 # Created by https://www.toptal.com/developers/gitignore/api/matlab
