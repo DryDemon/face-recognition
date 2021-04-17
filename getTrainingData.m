@@ -25,7 +25,7 @@ for i=1:size(filenames,1)
     
         I = getTrainingImage(I);
 
-    
+        imwrite(I,"trainingImages/"+i+'.png')
         correctId=strsplit(filenames{i},'-');
         correctId=str2double(correctId{1});
 
@@ -55,4 +55,5 @@ end
 
 
 
+    
     
