@@ -17,7 +17,7 @@ for i=1:size(filenames,1)
 
     type=str2double(type{1});
 
-    if(type == 5)
+    if(type == 5 | type == 3| type == 4)
         
         disp(i + "/" + size(filenames,1));    
         
@@ -51,7 +51,7 @@ function [Image] = getValidationImage(Image)
     % output : Image made for the training dataset
     %get
     
-    Image = getFaceCropped(Image);
+    % Image = getFaceCropped(Image);
     Image = imresize(Image, [224 224]);
     % Image = rgb2gray(Image);
     

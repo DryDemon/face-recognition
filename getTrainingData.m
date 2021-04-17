@@ -23,7 +23,7 @@ for i=1:size(filenames,1)
 
     type=str2double(type{1});
     
-    if(type == 1 | type == 2 | type == 3| type == 4)
+    if(type == 1 | type == 2 )
 
         I=imread(strcat(testFolder,(filenames{i})));
 
@@ -56,7 +56,7 @@ function [Image] = getTrainingImage(Image)
     % output : Image made for the training dataset
     %get
 
-    Image = getFaceCropped(Image);
+    % Image = getFaceCropped(Image);
     Image = imresize(Image, [224 224]);
     % Image = rgb2gray(Image);
     
