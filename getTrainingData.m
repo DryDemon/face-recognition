@@ -23,7 +23,7 @@ for i=1:size(filenames,1)
 
     type=str2double(type{1});
     
-    if(type == 1)
+    if(type == 1 | type == 2 | type == 3| type == 4)
 
         I=imread(strcat(testFolder,(filenames{i})));
 
@@ -34,10 +34,10 @@ for i=1:size(filenames,1)
 
         correctId=strsplit(filenames{i},'-');
         correctId=str2double(correctId{1});
-        
+
         mkdir("trainingImages/"+correctId+"/")
         
-        imwrite(I,"trainingImages/"+correctId+'/'+i+'.png')
+        imwrite(I,"trainingImages/"+correctId+'/'+type+'.png')
 
         % trainingInput = cat(3, trainingInput, I);
         

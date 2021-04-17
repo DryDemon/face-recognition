@@ -17,7 +17,7 @@ for i=1:size(filenames,1)
 
     type=str2double(type{1});
 
-    if(type == 2 | type == 3)
+    if(type == 5)
         
         disp(i + "/" + size(filenames,1));    
         
@@ -32,7 +32,7 @@ for i=1:size(filenames,1)
         
         mkdir("validationImages/"+correctId+"/")
         
-        imwrite(I,"validationImages/"+correctId+'/'+i+'.png')
+        imwrite(I,"validationImages/"+correctId+'/'+type+'.png')
         
         % trainingInput = cat(3, trainingInput, I);
         
@@ -50,6 +50,8 @@ function [Image] = getValidationImage(Image)
     % input : I (upright raw RGB image)
     % output : Image made for the training dataset
     %get
+    
+    Image = getFaceCropped(Image);
     Image = imresize(Image, [224 224]);
     % Image = rgb2gray(Image);
     
