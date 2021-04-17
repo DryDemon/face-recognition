@@ -4,7 +4,7 @@ trainingImages2/
 validationImages/
 validationImages2/
 Photo7/
-*.mat
+#*.mat
 
 # Created by https://www.toptal.com/developers/gitignore/api/matlab
 # Edit at https://www.toptal.com/developers/gitignore?templates=matlab

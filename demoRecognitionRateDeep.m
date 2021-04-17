@@ -1,5 +1,5 @@
 % only upright test images in directory
-testFolder='pictures\'; %%%%% your test directory
+testFolder='Photo7\'; %%%%% your test directory
 files=dir(testFolder);
 
 clear filenames
@@ -7,14 +7,14 @@ for i=3:size(files,1),
     filenames{i-2,1}=files(i).name;
 end
 
-load net.mat   %%%%% load your network here
+load NetWorkWithCropped.mat   %%%%% load your network here
 
 wrongImages={}; w=1;
 correct=0;
 tic;
 for i=1:size(filenames,1)
     I=imread(strcat(testFolder,(filenames{i})));
-    c=recogniseDeep(I,net);  %%%%% use your network variable here
+    c=recogniseDeep(I,trainedNetwork_1);  %%%%% use your network variable here
     
     correctId=strsplit(filenames{i},'-');
     correctId=str2double(correctId{1});
