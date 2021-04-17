@@ -48,7 +48,7 @@ function [Image] = getTrainingImage(Image)
 
     Image = getFaceCropped(Image);
     Image = imresize(Image, [224 224]);
-    Image = rgb2gray(Image);
+    % Image = rgb2gray(Image);
     
 
 end
