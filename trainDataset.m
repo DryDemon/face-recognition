@@ -6,7 +6,7 @@ nbNeurons = nbNeurons - mod(nbNeurons, 10) %nbNeurons end by 0
 net = [nbNeurons/10 nbNeurons/10 nbNeurons/10 nbNeurons/5 nbNeurons/5 nbNeurons/10 nbNeurons/10 nbNeurons/10];
 
 layers = [ ...
-imageInputLayer([200 200 3])
+imageInputLayer([224 224 3])
     convolution2dLayer([5 5],10)
     reluLayer
     fullyConnectedLayer(10)

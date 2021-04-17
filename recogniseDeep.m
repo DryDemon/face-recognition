@@ -5,7 +5,7 @@ function [c] = recogniseDeep(I,trainedNetwork)
     
 
     % example
-    I=imresize(I,[200 200]); %%%%% update to your network input size
+    I=imresize(I,[224 224]); %%%%% update to your network input size
     [YPred] = classify(trainedNetwork,I)
     c=str2double(string(YPred))
     
